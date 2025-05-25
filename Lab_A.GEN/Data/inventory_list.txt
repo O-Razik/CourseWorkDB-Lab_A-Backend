@@ -1,0 +1,12 @@
+﻿[
+  { "InventoryName": "Шприц одноразовий", "Price": 5 },
+  { "InventoryName": "Голка для забору крові", "Price": 3 },
+  { "InventoryName": "Пробірка вакуумна", "Price": 10 },
+  { "InventoryName": "Контейнер для сечі", "Price": 7 },
+  { "InventoryName": "Лабораторні рукавички", "Price": 15 },
+  { "InventoryName": "Стерильний тампон", "Price": 8 },
+  { "InventoryName": "Контейнер для калу", "Price": 7 },
+  { "InventoryName": "Мазок-аплікатор", "Price": 6 },
+  { "InventoryName": "Антисептик для рук", "Price": 12 },
+  { "InventoryName": "Епруветка для зразків", "Price": 9 }
+]

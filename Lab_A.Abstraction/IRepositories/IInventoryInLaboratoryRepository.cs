@@ -1,0 +1,8 @@
+﻿using Lab_A.Abstraction.IModels;
+
+namespace Lab_A.Abstraction.IRepositories;
+
+public interface IInventoryInLaboratoryRepository : ICrud<IInventoryInLaboratory>
+{
+    Task<IEnumerable<IInventoryInLaboratory>> GetByLaboratoryAsync(int laboratoryId);
+}
