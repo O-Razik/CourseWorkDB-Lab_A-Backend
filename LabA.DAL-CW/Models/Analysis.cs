@@ -16,9 +16,8 @@ public partial class Analysis : IAnalysis
     [Column("analysis_id")]
     public int AnalysisId { get; set; }
 
-    [Column("name")]
+    [Column("name", TypeName = "nvarchar(255)")]
     [StringLength(255)]
-    [Unicode(false)]
     public string Name { get; set; }
 
     [Column("category_id")]

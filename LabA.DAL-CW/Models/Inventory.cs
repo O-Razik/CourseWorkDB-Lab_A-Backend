@@ -16,9 +16,8 @@ public partial class Inventory : IInventory
     [Column("inventory_id")]
     public int InventoryId { get; set; }
 
-    [Column("inventory_name")]
+    [Column("inventory_name", TypeName = "nvarchar(255)")]
     [StringLength(255)]
-    [Unicode(false)]
     public string InventoryName { get; set; }
 
     [Column("price")]

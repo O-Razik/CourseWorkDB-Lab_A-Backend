@@ -22,24 +22,20 @@ public partial class Employee : IEmployee
     [Column("laboratory_id")]
     public int? LaboratoryId { get; set; }
 
-    [Column("first_name")]
+    [Column("first_name", TypeName = "nvarchar(255)")]
     [StringLength(255)]
-    [Unicode(false)]
     public string FirstName { get; set; }
 
-    [Column("last_name")]
+    [Column("last_name", TypeName = "nvarchar(255)")]
     [StringLength(255)]
-    [Unicode(false)]
     public string LastName { get; set; }
 
-    [Column("phone_number")]
-    [StringLength(20)]
-    [Unicode(false)]
+    [Column("phone_number", TypeName = "nvarchar(50)")]
+    [StringLength(50)]
     public string PhoneNumber { get; set; }
 
     [Column("email")]
     [StringLength(255)]
-    [Unicode(false)]
     public string Email { get; set; }
 
     [Column(TypeName = "datetime")]

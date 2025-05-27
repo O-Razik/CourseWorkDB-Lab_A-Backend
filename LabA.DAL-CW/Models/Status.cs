@@ -16,9 +16,8 @@ public partial class Status : IStatus
     [Column("status_id")]
     public int StatusId { get; set; }
 
-    [Column("status")]
+    [Column("status", TypeName = "nvarchar(255)")]
     [StringLength(255)]
-    [Unicode(false)]
     public string StatusName { get; set; }
 
     [Column(TypeName = "datetime")]

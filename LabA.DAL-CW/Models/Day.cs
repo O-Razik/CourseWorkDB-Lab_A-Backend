@@ -16,9 +16,8 @@ public partial class Day : IDay
     [Column("day_id")]
     public int DayId { get; set; }
 
-    [Column("day")]
+    [Column("day", TypeName = "nvarchar(255)")]
     [StringLength(255)]
-    [Unicode(false)]
     public string DayName { get; set; }
 
     [Column(TypeName = "datetime")]

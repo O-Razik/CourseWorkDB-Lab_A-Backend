@@ -23,8 +23,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Data\analyses_list.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    <None Update="Data/clients_list.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data/inventory_list.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Data/analyses_list.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

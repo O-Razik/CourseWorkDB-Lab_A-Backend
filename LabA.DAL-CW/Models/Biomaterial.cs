@@ -16,9 +16,8 @@ public partial class Biomaterial : IBiomaterial
     [Column("biomaterial_id")]
     public int BiomaterialId { get; set; }
 
-    [Column("biomaterial")]
+    [Column("biomaterial", TypeName = "nvarchar(255)")]
     [StringLength(255)]
-    [Unicode(false)]
     public string BiomaterialName { get; set; }
 
     [Column(TypeName = "datetime")]

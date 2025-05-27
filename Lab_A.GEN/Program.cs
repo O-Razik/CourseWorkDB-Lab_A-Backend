@@ -11,7 +11,7 @@ namespace Lab_A.GEN
         public static async Task Main(string[] args)
         {
             var optionsBuilder = new DbContextOptionsBuilder<LabAContext>();
-            optionsBuilder.UseSqlServer("Data Source=DESKTOP-Q99S6SN\\SQLEXPRESS01;Initial Catalog=Lab-A;Integrated Security=True;TrustServerCertificate=True");
+            optionsBuilder.UseSqlServer("Server=127.0.0.1,1433;Database=Lab-A;User Id=sa;Password=MSPass123;TrustServerCertificate=True;");
 
             var unitOfWork = new UnitOfWork(new LabAContext(optionsBuilder.Options));
 

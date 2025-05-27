@@ -16,9 +16,8 @@ public partial class AnalysisCategory : IAnalysisCategory
     [Column("analysis_category_id")]
     public int AnalysisCategoryId { get; set; }
 
-    [Column("category")]
+    [Column("category", TypeName = "nvarchar(255)")]
     [StringLength(255)]
-    [Unicode(false)]
     public string Category { get; set; }
 
     [Column(TypeName = "datetime")]

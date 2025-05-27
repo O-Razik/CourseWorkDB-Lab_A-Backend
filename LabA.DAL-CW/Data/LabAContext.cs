@@ -70,6 +70,8 @@ public partial class LabAContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.UseCollation("SQL_Latin1_General_CP1251_CI_AS");
+        
         modelBuilder.Entity<Analysis>(entity =>
         {
             entity.HasKey(e => e.AnalysisId).HasName("PK__Analysis__5B14DE5A599B49E8");
