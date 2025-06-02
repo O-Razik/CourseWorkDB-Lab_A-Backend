@@ -89,50 +89,38 @@ public class AnalysisRepository : IAnalysisRepository
         {
             existingEntity.CategoryId = analysis.Category.AnalysisCategoryId;
         }
-        // Set the Category to null if CategoryId is not set
-        existingEntity.Category = null;
 
-        // Update the AnalysisBiomaterials
+        // Remove all existing AnalysisBiomaterials
+        foreach (var ab in existingEntity.AnalysisBiomaterials.ToList())
+        {
+            _aContext.Remove(ab);
+        }
+        existingEntity.AnalysisBiomaterials.Clear();
+
+        // Add new AnalysisBiomaterials
         foreach (var analysisBiomaterial in analysis.AnalysisBiomaterials)
         {
-            var existingAnalysisBiomaterial = existingEntity.AnalysisBiomaterials
-                .FirstOrDefault(ab => ab.AnalysisBiomaterialId == analysisBiomaterial.AnalysisBiomaterialId);
-            if (existingAnalysisBiomaterial != null)
+            existingEntity.AnalysisBiomaterials.Add(new AnalysisBiomaterial
             {
-                existingAnalysisBiomaterial.BiomaterialId = analysisBiomaterial.BiomaterialId;
-                existingAnalysisBiomaterial.AnalysisId = analysis.AnalysisId;
-            }
+                BiomaterialId = analysisBiomaterial.BiomaterialId,
+                AnalysisId = existingEntity.AnalysisId,
+                CreateDatetime = DateTime.Now
+            });
         }
-        // Set the AnalysisBiomaterials to null if AnalysisBiomaterialId is not set
-        foreach (var analysisBiomaterial in existingEntity.AnalysisBiomaterials)
-        {
-            if (analysisBiomaterial.Biomaterial != null)
-            {
-                analysisBiomaterial.BiomaterialId = analysisBiomaterial.Biomaterial.BiomaterialId;
-            }
-            // Set the Biomaterial to null if BiomaterialId is not set
-            analysisBiomaterial.Biomaterial = null;
-            // Set the Analysis to null if AnalysisId is not set
-            analysisBiomaterial.AnalysisId = analysis.AnalysisId;
-            analysisBiomaterial.Analysis = null;
-        }
-
+        
         // Preserve the original CreateDatetime
-        analysis.CreateDatetime = existingEntity.CreateDatetime;
+        existingEntity.CreateDatetime = existingEntity.CreateDatetime;
 
         // Set the UpdateDatetime to the current time
-        analysis.UpdateDatetime = DateTime.Now;
+        existingEntity.UpdateDatetime = DateTime.Now;
 
-        // Update the existing entity with the new values
-        // Set the AnalysisId if Analysis is not null
-        if (analysis.AnalysisId != 0)
-        {
-            existingEntity.AnalysisId = analysis.AnalysisId;
-        }
+        // Update other scalar properties as needed
+        existingEntity.Name = analysis.Name;
+        existingEntity.Description = analysis.Description;
+        existingEntity.Price = analysis.Price;
 
-        _aContext.Entry(existingEntity).CurrentValues.SetValues(analysis);
         await _aContext.SaveChangesAsync();
-        return (await (this.ReadAsync(analysis.AnalysisId)!))!;
+        return await this.ReadAsync(existingEntity.AnalysisId);
     }
 
     public async Task<bool> DeleteAsync(int id)
