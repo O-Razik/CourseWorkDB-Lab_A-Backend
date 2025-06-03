@@ -67,12 +67,5 @@ namespace Lab_A.API.Controllers.Model
             var result = await _biomaterialCollectionService.UpdateAsync(biomaterialCollectionDto.ToEntity());
             return result == null ? NotFound() : Ok(result.ToDto());
         }
-
-        [HttpDelete("{id:int:min(1)}")]
-        public async Task<ActionResult> DeleteBiomaterialCollection(int id)
-        {
-            var result = await _biomaterialCollectionService.DeleteAsync(id);
-            return result ? NoContent() : NotFound();
-        }
     }
 }

@@ -58,13 +58,6 @@ public class ClientController : ControllerBase
         var result = await _clientService.UpdateAsync(client);
         return result == null ? NotFound() : Ok(result.ToDto());
     }
-    
-    [HttpDelete("{id:int:min(1)}")]
-    public async Task<ActionResult> DeleteClient(int id)
-    {
-        var result = await _clientService.DeleteAsync(id);
-        return result ? NoContent() : NotFound();
-    }
 
     // api/Client/Sex
 

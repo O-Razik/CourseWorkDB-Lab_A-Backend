@@ -63,12 +63,6 @@ public class InventoryOrderController : ControllerBase
         var result = await _inventoryOrderService.UpdateAsync(inventoryOrder.ToEntity());
         return result == null ? NotFound() : Ok(result.ToDto());
     }
-    [HttpDelete("{id:int:min(1)}")]
-    public async Task<ActionResult> DeleteInventoryOrder(int id)
-    {
-        var result = await _inventoryOrderService.DeleteAsync(id);
-        return result ? NoContent() : NotFound();
-    }
 
     // api/InventoryOrder/InventoryInOrder
 
@@ -100,12 +94,5 @@ public class InventoryOrderController : ControllerBase
         var inventoryInOrder = inventoryInOrderDto.ToEntity();
         var result = await _inventoryInOrderService.UpdateAsync(inventoryInOrder);
         return result == null ? NotFound() : Ok(result.ToDto());
-    }
-
-    [HttpDelete("InventoryInOrder/{id:int:min(1)}")]
-    public async Task<ActionResult> DeleteInventoryInOrder(int id)
-    {
-        var result = await _inventoryInOrderService.DeleteAsync(id);
-        return result ? NoContent() : NotFound();
     }
 }

@@ -45,12 +45,5 @@ namespace Lab_A.API.Controllers.Model
             var result = await _analysisCenterService.UpdateAsync(analysisCenter);
             return result == null ? NotFound() : Ok(result.ToDto());
         }
-
-        [HttpDelete("{id:int:min(1)}")]
-        public async Task<ActionResult> DeleteAnalysisCenter(int id)
-        {
-            var result = await _analysisCenterService.DeleteAsync(id);
-            return result ? NoContent() : NotFound();
-        }
     }
 }

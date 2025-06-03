@@ -63,11 +63,4 @@ public class InventoryDeliveryController : ControllerBase
         var result = await _inventoryDeliveryService.UpdateAsync(inventoryDelivery);
         return result == null ? NotFound() : Ok(result.ToDto());
     }
-
-    [HttpDelete("{id:int:min(1)}")]
-    public async Task<ActionResult> DeleteInventoryDelivery(int id)
-    {
-        var result = await _inventoryDeliveryService.DeleteAsync(id);
-        return result ? NoContent() : NotFound();
-    }
 }

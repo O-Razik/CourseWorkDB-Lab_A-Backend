@@ -51,13 +51,6 @@ public class LaboratoryController : ControllerBase
         return result == null ? NotFound() : Ok(result.ToDto());
     }
 
-    [HttpDelete("{id:int:min(1)}")]
-    public async Task<ActionResult> DeleteLaboratory(int id)
-    {
-        var result = await _laboratoryService.DeleteAsync(id);
-        return result ? NoContent() : NotFound();
-    }
-
     // api/Laboratory/Inventory
 
     [HttpGet("{id:int:min(1)}/Inventory/{isZero:bool}")]
@@ -90,13 +83,6 @@ public class LaboratoryController : ControllerBase
         return result == null ? NotFound() : Ok(result.ToDto());
     }
 
-    [HttpDelete("Inventory/{id:int:min(1)}")]
-    public async Task<ActionResult> DeleteInventoryInLaboratory(int id)
-    {
-        var result = await _inventoryInLaboratoryService.DeleteAsync(id);
-        return result ? NoContent() : NotFound();
-    }
-
     // api/Laboratory/LaboratorySchedule
 
     [HttpGet("{id:int:min(1)}/LaboratorySchedule")]
@@ -127,12 +113,5 @@ public class LaboratoryController : ControllerBase
         var laboratorySchedule = laboratoryScheduleDto.ToEntity();
         var result = await _laboratoryScheduleService.UpdateAsync(laboratorySchedule);
         return result == null ? NotFound() : Ok(result.ToDto());
-    }
-
-    [HttpDelete("LaboratorySchedule/{id:int:min(1)}")]
-    public async Task<ActionResult> DeleteLaboratorySchedule(int id)
-    {
-        var result = await _laboratoryScheduleService.DeleteAsync(id);
-        return result ? NoContent() : NotFound();
     }
 }

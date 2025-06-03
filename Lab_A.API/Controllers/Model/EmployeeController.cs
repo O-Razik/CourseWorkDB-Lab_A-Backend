@@ -59,13 +59,6 @@ public class EmployeeController : ControllerBase
         var result = await _employeeService.UpdateAsync(employee);
         return result == null ? NotFound() : Ok(result.ToDto());
     }
-    
-    [HttpDelete("{id:int:min(1)}")]
-    public async Task<ActionResult> DeleteEmployee(int id)
-    {
-        var result = await _employeeService.DeleteAsync(id);
-        return result ? NoContent() : NotFound();
-    }
 
     // api/Employee/Position
     [HttpGet("Position/all")]

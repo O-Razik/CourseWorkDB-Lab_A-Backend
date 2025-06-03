@@ -40,10 +40,4 @@ public class CityController : ControllerBase
         var result = await _cityService.UpdateAsync(city);
         return result == null ? NotFound() : Ok(result.ToDto());
     }
-    [HttpDelete("{id:int:min(1)}")]
-    public async Task<ActionResult> DeleteCity(int id)
-    {
-        var result = await _cityService.DeleteAsync(id);
-        return result ? NoContent() : NotFound();
-    }
 }

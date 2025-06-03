@@ -43,11 +43,4 @@ public class SupplierController : ControllerBase
         var result = await _supplierService.UpdateAsync(supplier.ToEntity());
         return result == null ? NotFound() : Ok(result.ToDto());
     }
-
-    [HttpDelete("{id:int:min(1)}")]
-    public async Task<ActionResult> DeleteSupplier(int id)
-    {
-        var result = await _supplierService.DeleteAsync(id);
-        return result ? NoContent() : NotFound();
-    }
 }

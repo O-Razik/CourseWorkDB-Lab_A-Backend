@@ -48,13 +48,6 @@ public class ScheduleController : ControllerBase
         return result == null ? NotFound() : Ok(result.ToDto());
     }
 
-    [HttpDelete("{id:int:min(1)}")]
-    public async Task<ActionResult> DeleteSchedule(int id)
-    {
-        var result = await _scheduleService.DeleteAsync(id);
-        return result ? NoContent() : NotFound();
-    }
-
     // api/Schedule/Day
 
     [HttpGet("Day/all")]

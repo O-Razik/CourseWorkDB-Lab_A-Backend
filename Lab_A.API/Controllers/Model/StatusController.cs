@@ -40,10 +40,4 @@ public class StatusController : ControllerBase
         var result = await _statusService.UpdateAsync(status.ToEntity());
         return result == null ? NotFound() : Ok(result.ToDto());
     }
-    [HttpDelete("{id:int:min(1)}")]
-    public async Task<ActionResult> DeleteStatus(int id)
-    {
-        var result = await _statusService.DeleteAsync(id);
-        return result ? NoContent() : NotFound();
-    }
 }
