@@ -278,4 +278,8 @@ public class AnalysisResultService : IAnalysisResultService
         return memoryStream;
     }
 
+    public async Task<IEnumerable<IAnalysisResult>> GetAnalysisResultsByOrderId(int orderId)
+    {
+        return await _repository.GetAnalysisResultsByOrderId(orderId);
+    }
 }

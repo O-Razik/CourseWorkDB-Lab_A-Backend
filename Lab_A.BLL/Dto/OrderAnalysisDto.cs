@@ -11,4 +11,6 @@ public class OrderAnalysisDto
     public virtual AnalysisDto Analysis { get; set; } = null!;
 
     public virtual ClientOrderDto? ClientOrder { get; set; }
+    
+    public virtual ICollection<AnalysisResultDto>? AnalysisResults { get; set; }
 }

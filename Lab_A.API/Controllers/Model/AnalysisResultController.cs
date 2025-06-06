@@ -81,5 +81,12 @@ namespace Lab_A.API.Controllers.Model
                 return StatusCode(500, "Сталася помилка при генерації PDF звіту");
             }
         }
+
+        [HttpGet("{id}/orders")]
+        public async Task<ActionResult<IEnumerable<AnalysisResultDto>>> GetAnalysisResultsByOrderId(int orderId)
+        {
+            var result = await _analysisResultService.GetAnalysisResultsByOrderId(orderId);
+            return Ok(result.Select(ao => ao.ToDto()));
+        }
     }
 }
