@@ -16,9 +16,8 @@ public partial class Sex : ISex
     [Column("sex_id")]
     public int SexId { get; set; }
 
-    [Column("sex")]
+    [Column("sex", TypeName = "nvarchar(10)")]
     [StringLength(10)]
-    [Unicode(false)]
     public string SexName { get; set; }
 
     [Column(TypeName = "datetime")]

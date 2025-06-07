@@ -19,9 +19,8 @@ public partial class AnalysisCenter : IAnalysisCenter
     [Column("city_id")]
     public int CityId { get; set; }
 
-    [Column("address")]
+    [Column("address", TypeName = "nvarchar(255)")]
     [StringLength(255)]
-    [Unicode(false)]
     public string Address { get; set; }
 
     [Column(TypeName = "datetime")]

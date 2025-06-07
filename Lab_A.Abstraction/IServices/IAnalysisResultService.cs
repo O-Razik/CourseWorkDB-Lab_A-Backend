@@ -17,4 +17,5 @@ public interface IAnalysisResultService
     Task<IAnalysisResult?> UpdateAsync(IAnalysisResult entity);
     Task<bool> DeleteAsync(int id);
     Task<Stream> GeneratePdfReportAsync(int analysisResultId);
+    Task<IEnumerable<IAnalysisResult>> GetAnalysisResultsByOrderId(int orderId);
 }

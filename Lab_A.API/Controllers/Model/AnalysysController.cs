@@ -50,13 +50,6 @@ namespace Lab_A.API.Controllers.Model
             return result == null ? NotFound() : Ok(result.ToDto());
         }
 
-        [HttpDelete("{id:int:min(1)}")]
-        public async Task<ActionResult> DeleteAnalysis(int id)
-        {
-            var result = await _analysisService.DeleteAsync(id);
-            return result ? NoContent() : NotFound();
-        }
-
         // api/Analysis/AnalysisBiomaterial
 
         [HttpGet("{id:int:min(1)}/AnalysisBiomaterial")]
@@ -87,13 +80,6 @@ namespace Lab_A.API.Controllers.Model
             var analysisBiomaterial = analysisBiomaterialDto.ToEntity();
             var result = await _analysisBiomaterialService.UpdateAsync(analysisBiomaterial);
             return result == null ? NotFound() : Ok(result.ToDto());
-        }
-
-        [HttpDelete("AnalysisBiomaterial/{id:int:min(1)}")]
-        public async Task<ActionResult> DeleteAnalysisBiomaterial(int id)
-        {
-            var result = await _analysisBiomaterialService.DeleteAsync(id);
-            return result ? NoContent() : NotFound();
         }
     }
 }

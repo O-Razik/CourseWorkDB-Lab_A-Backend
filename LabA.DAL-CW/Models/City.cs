@@ -16,9 +16,8 @@ public partial class City : ICity
     [Column("city_id")]
     public int CityId { get; set; }
 
-    [Column("city")]
+    [Column("city", TypeName = "nvarchar(255)")]
     [StringLength(255)]
-    [Unicode(false)]
     public string CityName { get; set; }
 
     [Column(TypeName = "datetime")]

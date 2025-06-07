@@ -61,13 +61,6 @@ namespace Lab_A.API.Controllers.Model
             return result == null ? NotFound() : Ok(result.ToDto());
         }
 
-        [HttpDelete("{id:int:min(1)}")]
-        public async Task<ActionResult> DeleteAnalysisResult(int id)
-        {
-            var result = await _analysisResultService.DeleteAsync(id);
-            return result ? NoContent() : NotFound();
-        }
-
         [HttpGet("{id}/pdf")]
         [ProducesResponseType(typeof(FileStreamResult), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -87,6 +80,13 @@ namespace Lab_A.API.Controllers.Model
             {
                 return StatusCode(500, "Сталася помилка при генерації PDF звіту");
             }
+        }
+
+        [HttpGet("{id}/orders")]
+        public async Task<ActionResult<IEnumerable<AnalysisResultDto>>> GetAnalysisResultsByOrderId(int orderId)
+        {
+            var result = await _analysisResultService.GetAnalysisResultsByOrderId(orderId);
+            return Ok(result.Select(ao => ao.ToDto()));
         }
     }
 }

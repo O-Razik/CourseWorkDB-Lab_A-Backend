@@ -74,12 +74,6 @@ public class ClientOrderController : ControllerBase
         var result = await _clientOrderService.UpdateAsync(clientOrder);
         return result == null ? NotFound() : Ok(result.ToDto());
     }
-    [HttpDelete("{id:int:min(1)}")]
-    public async Task<ActionResult> DeleteClientOrder(int id)
-    {
-        var result = await _clientOrderService.DeleteAsync(id);
-        return result ? NoContent() : NotFound();
-    }
 
     // api/ClientOrder/OrderAnalysis
 
@@ -96,23 +90,18 @@ public class ClientOrderController : ControllerBase
         var result = await _orderAnalysisService.ReadAsync(id);
         return result == null ? NotFound() : Ok(result.ToDto());
     }
+    
     [HttpPost("OrderAnalysis")]
     public async Task<ActionResult<OrderAnalysisDto>> CreateOrderAnalysis([FromBody] OrderAnalysisDto orderAnalysis)
     {
         var result = await _orderAnalysisService.CreateAsync(orderAnalysis.ToEntity());
         return CreatedAtAction(nameof(GetOrderAnalysis), new { id = result.OrderAnalysisId }, result.ToDto());
     }
+    
     [HttpPut("OrderAnalysis")]
     public async Task<ActionResult<OrderAnalysisDto>> UpdateOrderAnalysis([FromBody] OrderAnalysisDto orderAnalysis)
     {
         var result = await _orderAnalysisService.UpdateAsync(orderAnalysis.ToEntity());
         return result == null ? NotFound() : Ok(result.ToDto());
     }
-    [HttpDelete("OrderAnalysis/{id:int:min(1)}")]
-    public async Task<ActionResult> DeleteOrderAnalysis(int id)
-    {
-        var result = await _orderAnalysisService.DeleteAsync(id);
-        return result ? NoContent() : NotFound();
-    }
-
 }

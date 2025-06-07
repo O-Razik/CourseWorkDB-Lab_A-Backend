@@ -16,24 +16,21 @@ public partial class Supplier : ISupplier
     [Column("supplier_id")]
     public int SupplierId { get; set; }
 
-    [Column("name")]
+    [Column("name", TypeName = "nvarchar(255)")]
     [StringLength(255)]
-    [Unicode(false)]
     public string Name { get; set; }
 
     [Column("email")]
     [StringLength(255)]
-    [Unicode(false)]
     public string Email { get; set; }
 
-    [Column("phone_number")]
-    [StringLength(20)]
+    [Column("phone_number", TypeName = "nvarchar(50)")]
+    [StringLength(50)]
     [Unicode(false)]
     public string PhoneNumber { get; set; }
 
-    [Column("license")]
+    [Column("license", TypeName = "nvarchar(255)")]
     [StringLength(255)]
-    [Unicode(false)]
     public string License { get; set; }
 
     [Column(TypeName = "datetime")]

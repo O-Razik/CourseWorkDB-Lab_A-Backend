@@ -16,14 +16,12 @@ public partial class Client : IClient
     [Column("client_id")]
     public int ClientId { get; set; }
 
-    [Column("first_name")]
+    [Column("first_name", TypeName = "nvarchar(255)")]
     [StringLength(255)]
-    [Unicode(false)]
     public string FirstName { get; set; }
 
-    [Column("last_name")]
+    [Column("last_name", TypeName = "nvarchar(255)")]
     [StringLength(255)]
-    [Unicode(false)]
     public string LastName { get; set; }
 
     [Column("sex_id")]
@@ -32,8 +30,8 @@ public partial class Client : IClient
     [Column("birthdate")]
     public DateOnly Birthdate { get; set; }
 
-    [Column("phone_number")]
-    [StringLength(20)]
+    [Column("phone_number", TypeName = "nvarchar(50)")]
+    [StringLength(50)]
     [Unicode(false)]
     public string PhoneNumber { get; set; }
 

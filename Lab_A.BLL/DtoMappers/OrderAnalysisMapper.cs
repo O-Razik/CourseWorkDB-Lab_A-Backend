@@ -15,8 +15,22 @@ public static class OrderAnalysisMapper
             AnalysisId = (int)orderAnalysis.AnalysisId!,
             Analysis = orderAnalysis.Analysis.ToDto(),
             ClientOrder = orderAnalysis.ClientOrder.ToDto2(),
+            AnalysisResults = orderAnalysis.AnalysisResults?.Select(x => x.ToDto()).ToList(),
         };
     }
+    
+    public static OrderAnalysisDto ToDto2(this IOrderAnalysis orderAnalysis)
+    {
+        return new OrderAnalysisDto()
+        {
+            OrderAnalysisId = orderAnalysis.OrderAnalysisId,
+            ClientOrderId = (int)orderAnalysis.ClientOrderId!,
+            AnalysisId = (int)orderAnalysis.AnalysisId!,
+            Analysis = orderAnalysis.Analysis.ToDto(),
+            ClientOrder = orderAnalysis.ClientOrder.ToDto2(),
+        };
+    }
+    
     public static IOrderAnalysis ToEntity(this OrderAnalysisDto orderAnalysisDto)
     {
         return new OrderAnalysis()

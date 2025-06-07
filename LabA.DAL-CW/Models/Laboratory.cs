@@ -18,17 +18,15 @@ public partial class Laboratory : ILaboratory
     [Column("laboratory_id")]
     public int LaboratoryId { get; set; }
 
-    [Column("address")]
+    [Column("address", TypeName = "nvarchar(255)")]
     [StringLength(50)]
-    [Unicode(false)]
     public string Address { get; set; }
 
     [Column("city_id")]
     public int CityId { get; set; }
 
-    [Column("phone_number")]
+    [Column("phone_number", TypeName = "nvarchar(50)")]
     [StringLength(50)]
-    [Unicode(false)]
     public string PhoneNumber { get; set; }
 
     [Column(TypeName = "datetime")]

@@ -27,22 +27,21 @@ public class FromFilesGenerator : IGenerator<LabAContext>
 
     private async Task GenerateAnalyses()
     {
-        var analyses = ReadFromJson<AnalysisJson>("..\\..\\..\\Data\\analyses_list.txt");
+        var analyses = ReadFromJson<AnalysisJson>("Data/analyses_list.txt");
         var analysisWriter = new AnalysisWriter(UnitOfWork);
         await analysisWriter.Write(analyses);
     }
 
     private async Task GenerateInventory()
     {
-        var inventoryList = ReadFromJson<InventoryJson>("..\\..\\..\\Data\\inventory_list.txt");
+        var inventoryList = ReadFromJson<InventoryJson>("Data/inventory_list.txt");
         var inventoryWriter = new InventoryWriter(UnitOfWork);
         await inventoryWriter.Write(inventoryList);
     }
 
     private async Task GenerateClients()
     {
-        // source: https://www.datablist.com/learn/csv/download-sample-csv-files
-        var clients = ReadFromCsv<ClientCSV>("..\\..\\..\\Data\\clients_list.csv");
+        var clients = ReadFromCsv<ClientCSV>("Data/clients_list.csv");
         var clientWriter = new ClientWriter(UnitOfWork);
         await clientWriter.Write(clients);
     }

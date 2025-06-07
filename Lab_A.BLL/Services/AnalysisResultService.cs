@@ -108,7 +108,14 @@ public class AnalysisResultService : IAnalysisResultService
         document.Open();
 
         // Font configuration with Arial Unicode for proper Cyrillic support
-        var arialFontPath = @"C:\Windows\Fonts\arial.ttf";
+        string arialFontPath;
+        if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.Windows))
+            arialFontPath = @"C:\Windows\Fonts\arial.ttf";
+        else if (System.Runtime.InteropServices.RuntimeInformation.IsOSPlatform(System.Runtime.InteropServices.OSPlatform.OSX))
+            arialFontPath = "/Library/Fonts/Arial Unicode.ttf";
+        else // Linux fallback
+            arialFontPath = "/usr/share/fonts/truetype/msttcorefonts/Arial.ttf";
+        
         var headerFont = FontFactory.GetFont(arialFontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 18, Font.BOLD, BaseColor.DARK_GRAY);
         var analysisNameFont = FontFactory.GetFont(arialFontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 14, Font.BOLD, BaseColor.DARK_GRAY);
         var sectionFont = FontFactory.GetFont(arialFontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED, 14, Font.BOLD, BaseColor.BLACK);
@@ -271,4 +278,8 @@ public class AnalysisResultService : IAnalysisResultService
         return memoryStream;
     }
 
+    public async Task<IEnumerable<IAnalysisResult>> GetAnalysisResultsByOrderId(int orderId)
+    {
+        return await _repository.GetAnalysisResultsByOrderId(orderId);
+    }
 }

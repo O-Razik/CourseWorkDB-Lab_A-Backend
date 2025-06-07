@@ -141,4 +141,16 @@ public class AnalysisResultRepository : IAnalysisResultRepository
             return false;
         }
     }
+
+    public async Task<IEnumerable<IAnalysisResult>> GetAnalysisResultsByOrderId(int orderId)
+    {
+        return await _aContext.AnalysisResults
+            .Include(ar => ar.AnalysisCenter).ThenInclude(ac => ac.City)
+            .Include(ar => ar.OrderAnalysis).ThenInclude(oa => oa.Analysis)
+                .ThenInclude(a => a.Category)
+            .Include(ar => ar.OrderAnalysis).ThenInclude(oa => oa.ClientOrder)
+                .ThenInclude(co => co.Status)
+            .Include(ar => ar.OrderAnalysis)
+            .Where(ar => ar.OrderAnalysis.ClientOrderId == orderId).ToListAsync();
+    }
 }

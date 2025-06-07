@@ -63,7 +63,7 @@ public class StaticDataGenerator : IGenerator<LabAContext>
             new() { PositionName = "Адміністратор" },
             new() { PositionName = "Реєстратор-касир" },
             new() { PositionName = "Менеджер інвентаря" },
-            new() { PositionName = "Оператор з транспортування біоматеріалів" }
+            new() { PositionName = "Транспортер біоматеріалів" }
         };
 
         foreach (var position in positions)

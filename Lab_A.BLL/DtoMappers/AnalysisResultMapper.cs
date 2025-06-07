@@ -16,7 +16,7 @@ public static class AnalysisResultMapper
             Indicator = analysisResult.Indicator,
             Description = analysisResult.Description,
             AnalysisCenterId = analysisResult.AnalysisCenterId,
-            OrderAnalysis = analysisResult.OrderAnalysis.ToDto(),
+            OrderAnalysis = analysisResult.OrderAnalysis.ToDto2(),
             AnalysisCenter = analysisResult.AnalysisCenter.ToDto(),
         };
     }

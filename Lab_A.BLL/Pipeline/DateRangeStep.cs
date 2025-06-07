@@ -25,31 +25,35 @@ public class DateRangeStep<T> : IPipelineStep<T> where T : class
         var parameter = Expression.Parameter(typeof(T), "x");
         var property = Expression.Property(parameter, _datePropertyName);
         var propertyType = ((PropertyInfo)property.Member).PropertyType;
+        var underlyingType = Nullable.GetUnderlyingType(propertyType) ?? propertyType;
 
         Expression? fromCompare = null;
         Expression? toCompare = null;
 
+        object? fromValueObj = null;
+        object? toValueObj = null;
+
         if (_fromDate.HasValue)
         {
-            var fromValue = Expression.Constant(_fromDate.Value, propertyType);
+            fromValueObj = underlyingType == typeof(DateOnly)
+                ? DateOnly.FromDateTime(_fromDate.Value)
+                : Convert.ChangeType(_fromDate.Value, underlyingType);
+            var fromValue = Expression.Constant(fromValueObj, propertyType);
             fromCompare = Expression.GreaterThanOrEqual(property, fromValue);
         }
 
         if (_toDate.HasValue)
         {
-            var toValue = Expression.Constant(_toDate.Value, propertyType);
+            toValueObj = underlyingType == typeof(DateOnly)
+                ? DateOnly.FromDateTime(_toDate.Value)
+                : Convert.ChangeType(_toDate.Value, underlyingType);
+            var toValue = Expression.Constant(toValueObj, propertyType);
             toCompare = Expression.LessThanOrEqual(property, toValue);
         }
 
-        Expression? combined = null;
-        if (fromCompare != null && toCompare != null)
-        {
-            combined = Expression.AndAlso(fromCompare, toCompare);
-        }
-        else
-        {
-            combined = fromCompare ?? toCompare;
-        }
+        Expression? combined = fromCompare != null && toCompare != null
+            ? Expression.AndAlso(fromCompare, toCompare)
+            : fromCompare ?? toCompare;
 
         var lambda = Expression.Lambda<Func<T, bool>>(combined!, parameter);
         return input.Where(lambda);

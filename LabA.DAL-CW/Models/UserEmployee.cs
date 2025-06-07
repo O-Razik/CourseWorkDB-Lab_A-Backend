@@ -22,7 +22,6 @@ public partial class UserEmployee : IUserEmployee
 
     [Column("email")]
     [StringLength(255)]
-    [Unicode(false)]
     public string Email { get; set; }
 
     [Column("password_hash")]

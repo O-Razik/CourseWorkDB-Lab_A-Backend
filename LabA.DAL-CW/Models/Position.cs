@@ -16,9 +16,8 @@ public partial class Position : IPosition
     [Column("position_id")]
     public int PositionId { get; set; }
 
-    [Column("position")]
+    [Column("position", TypeName = "nvarchar(255)")]
     [StringLength(255)]
-    [Unicode(false)]
     public string PositionName{ get; set; }
 
     [Column(TypeName = "datetime")]
