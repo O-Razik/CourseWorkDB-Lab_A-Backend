@@ -11,15 +11,16 @@ public static class InventoryDeliveryMapper
         return new InventoryDeliveryDto
         {
             InventoryDeliveryId = entity.InventoryDeliveryId,
-            InventoryInOrderId = (int)entity.InventoryInOrderId!,
-            InventoryInLaboratoryId = (int)entity.InventoryInLaboratoryId!,
-            Quantity = (int)entity.Quantity!,
-            DeliveryDate = (DateTime)entity.DeliveryDate!,
+            InventoryInOrderId = entity.InventoryInOrderId ?? 0,
+            InventoryInLaboratoryId = entity.InventoryInLaboratoryId ?? 0,
+            Quantity = entity.Quantity ?? 0,
+            DeliveryDate = entity.DeliveryDate ?? DateTime.MinValue,
             ExpirationDate = entity.ExpirationDate,
             StatusId = entity.StatusId,
-            InventoryInLaboratory = entity.InventoryInLaboratory.ToDto(),
-            LaboratoryFullAddress = entity.InventoryInLaboratory.Laboratory.City.CityName + ", " + entity.InventoryInLaboratory.Laboratory.Address,
-            Status = entity.Status.ToDto(),
+            InventoryInLaboratory = entity.InventoryInLaboratory?.ToDto(),
+            LaboratoryFullAddress = entity.InventoryInLaboratory?.Laboratory?.City?.CityName + ", " +
+                                    entity.InventoryInLaboratory?.Laboratory?.Address,
+            Status = entity.Status?.ToDto(),
         };
     }
 
@@ -35,7 +36,7 @@ public static class InventoryDeliveryMapper
             ExpirationDate = dto.ExpirationDate,
             StatusId = dto.StatusId,
             InventoryInLaboratory = (InventoryInLaboratory)dto.InventoryInLaboratory.ToEntity(),
-            Status = (Status)dto.Status.ToEntity(),
+            Status = (Status)dto.Status.ToEntity()!,
         };
     }
 }

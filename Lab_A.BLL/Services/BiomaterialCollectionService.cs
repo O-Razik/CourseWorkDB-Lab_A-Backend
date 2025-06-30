@@ -42,7 +42,10 @@ public class BiomaterialCollectionService : IBiomaterialCollectionService
 
         if (notDelivered)
         {
-            collections = collections.Where(x => x.BiomaterialDeliveries.Count == 0);
+            collections = collections
+                .Where(bc => bc.ClientOrder.StatusId != 4)
+                .Where(bc => bc.BiomaterialDeliveries.Count == 0 ||
+                             bc.BiomaterialDeliveries.All(bd => bd.StatusId == 4));
         }
 
         var query = collections.AsQueryable();

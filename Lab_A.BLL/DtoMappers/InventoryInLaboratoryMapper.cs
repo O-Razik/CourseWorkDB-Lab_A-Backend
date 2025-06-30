@@ -6,8 +6,13 @@ namespace Lab_A.BLL.DtoMappers;
 
 public static class InventoryInLaboratoryMapper
 {
-    public static InventoryInLaboratoryDto ToDto(this IInventoryInLaboratory inventoryInLaboratory)
+    public static InventoryInLaboratoryDto? ToDto(this IInventoryInLaboratory? inventoryInLaboratory)
     {
+        if (inventoryInLaboratory == null)
+        {
+            return null;
+        }
+        
         return new InventoryInLaboratoryDto()
         {
             InventoryInLaboratoryId = inventoryInLaboratory.InventoryInLaboratoryId,
@@ -18,7 +23,7 @@ public static class InventoryInLaboratoryMapper
             Inventory = inventoryInLaboratory.Inventory.ToDto()
         };
     }
-    public static IInventoryInLaboratory ToEntity(this InventoryInLaboratoryDto inventoryInLaboratoryDto)
+    public static IInventoryInLaboratory ToEntity(this InventoryInLaboratoryDto? inventoryInLaboratoryDto)
     {
         return new InventoryInLaboratory
         {

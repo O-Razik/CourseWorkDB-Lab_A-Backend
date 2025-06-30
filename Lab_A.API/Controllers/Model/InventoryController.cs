@@ -1,6 +1,7 @@
 ﻿using Lab_A.Abstraction.IServices;
 using Lab_A.BLL.Dto;
 using Lab_A.BLL.DtoMappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lab_A.API.Controllers.Model;
@@ -26,6 +27,7 @@ public class InventoryController : ControllerBase
         var result = await _inventoryService.ReadAsync(id);
         return result == null ? NotFound() : Ok(result.ToDto());
     }
+    
     [HttpPost]
     public async Task<ActionResult<InventoryDto>> CreateInventory([FromBody] InventoryDto inventoryDto)
     {
@@ -33,6 +35,7 @@ public class InventoryController : ControllerBase
         var result = await _inventoryService.CreateAsync(inventory);
         return CreatedAtAction(nameof(GetInventory), new { id = result.InventoryId }, result.ToDto());
     }
+    
     [HttpPut]
     public async Task<ActionResult<InventoryDto>> UpdateInventory([FromBody] InventoryDto inventoryDto)
     {

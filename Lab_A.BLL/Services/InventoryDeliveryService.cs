@@ -8,15 +8,22 @@ namespace Lab_A.BLL.Services;
 public class InventoryDeliveryService : IInventoryDeliveryService
 {
     private readonly IInventoryDeliveryRepository _repository;
+    private readonly IInventoryOrderRepository _orderRepository;
 
-    public InventoryDeliveryService(IInventoryDeliveryRepository repository)
+    public InventoryDeliveryService(IInventoryDeliveryRepository repository, IInventoryOrderRepository orderRepository)
     {
         _repository = repository;
+        _orderRepository  = orderRepository;
     }
 
     public async Task<IInventoryDelivery> CreateAsync(IInventoryDelivery entity)
     {
-        return await _repository.CreateAsync(entity);
+        var result = await _repository.CreateAsync(entity);
+        if (result.InventoryInOrder.InventoryOrderId.HasValue)
+        {
+            await _orderRepository.UpdateStatusAsync(result.InventoryInOrder.InventoryOrderId.Value);
+        }
+        return result;
     }
 
     public async Task<IInventoryDelivery?> ReadAsync(int id)
@@ -109,7 +116,22 @@ public class InventoryDeliveryService : IInventoryDeliveryService
 
     public async Task<IInventoryDelivery?> UpdateAsync(IInventoryDelivery entity)
     {
-        return await _repository.UpdateAsync(entity);
+        var result = await _repository.UpdateAsync(entity);
+        if (result!.InventoryInOrder.InventoryOrderId.HasValue)
+        {
+            await _orderRepository.UpdateStatusAsync(result.InventoryInOrder.InventoryOrderId.Value);
+        }
+        return result;
+    }
+
+    public async Task<IInventoryDelivery?> UpdateStatusAsync(int deliveryId, int status)
+    {
+        var result = await _repository.UpdateStatusAsync(deliveryId, status);
+        if (result!.InventoryInOrder.InventoryOrderId.HasValue)
+        {
+            await _orderRepository.UpdateStatusAsync(result.InventoryInOrder.InventoryOrderId.Value);
+        }
+        return result;
     }
 
     public async Task<bool> DeleteAsync(int id)

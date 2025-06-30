@@ -122,6 +122,34 @@ public class InventoryDeliveryRepository : IInventoryDeliveryRepository
         return (await this.ReadAsync(inventoryDelivery.InventoryDeliveryId))!;
     }
 
+    public async Task<IInventoryDelivery?> UpdateStatusAsync(int deliveryId, int status)
+    {
+        var entity = await _aContext.InventoryDeliveries
+            .Include(idl => idl.InventoryInLaboratory)
+            .FirstOrDefaultAsync(idl => idl.InventoryDeliveryId == deliveryId);
+        if (entity == null) return null;
+
+        var statusEntity = await _aContext.Statuses
+            .FirstOrDefaultAsync(s => s.StatusId == status);
+        if (statusEntity == null) return null;
+
+        entity.StatusId = statusEntity.StatusId;
+
+        entity.InventoryInLaboratory.Quantity = entity.StatusId switch
+        {
+            3 when entity is { InventoryInLaboratory: not null, Quantity: not null } => entity.Quantity.Value,
+            4 when entity is { InventoryInLaboratory: not null, Quantity: not null } => 0,
+            _ => entity.InventoryInLaboratory?.Quantity
+        };
+
+        entity.UpdateDatetime = DateTime.Now;
+
+        _aContext.Entry(entity).State = EntityState.Modified;
+
+        await _aContext.SaveChangesAsync();
+        return await this.ReadAsync(entity.InventoryDeliveryId);
+    }
+
     public async Task<bool> DeleteAsync(int id)
     {
         var entity = await _aContext.InventoryDeliveries

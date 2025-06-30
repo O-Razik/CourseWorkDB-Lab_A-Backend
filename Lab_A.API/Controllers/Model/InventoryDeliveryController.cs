@@ -63,4 +63,11 @@ public class InventoryDeliveryController : ControllerBase
         var result = await _inventoryDeliveryService.UpdateAsync(inventoryDelivery);
         return result == null ? NotFound() : Ok(result.ToDto());
     }
+    
+    [HttpPatch("{deliveryId:int:min(1)}/status/{status:int:min(1)}")]
+    public async Task<ActionResult<InventoryDeliveryDto>> UpdateInventoryDeliveryStatus(int deliveryId, int status)
+    {
+        var result = await _inventoryDeliveryService.UpdateStatusAsync(deliveryId, status);
+        return result == null ? NotFound() : Ok(result.ToDto());
+    }
 }

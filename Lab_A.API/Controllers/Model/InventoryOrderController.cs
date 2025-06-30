@@ -63,6 +63,13 @@ public class InventoryOrderController : ControllerBase
         var result = await _inventoryOrderService.UpdateAsync(inventoryOrder.ToEntity());
         return result == null ? NotFound() : Ok(result.ToDto());
     }
+    
+    [HttpPatch("{id:int:min(1)}/cancel")]
+    public async Task<ActionResult<InventoryOrderDto>> CancelInventoryOrder([FromRoute] int id)
+    {
+        var result = await _inventoryOrderService.CancelOrderAsync(id);
+        return result == null ? NotFound() : Ok(result.ToDto());
+    }
 
     // api/InventoryOrder/InventoryInOrder
 

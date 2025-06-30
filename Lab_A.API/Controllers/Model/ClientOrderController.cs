@@ -67,12 +67,20 @@ public class ClientOrderController : ControllerBase
         var result = await _clientOrderService.CreateAsync(clientOrder);
         return CreatedAtAction(nameof(GetClientOrder), new { id = result.ClientOrderId }, result.ToDto());
     }
+    
     [HttpPut]
     public async Task<ActionResult<ClientOrderDto>> UpdateClientOrder([FromBody] ClientOrderDto clientOrderDto)
     {
         var clientOrder = clientOrderDto.ToEntity();
         var result = await _clientOrderService.UpdateAsync(clientOrder);
         return result == null ? NotFound() : Ok(result.ToDto());
+    }
+
+    [HttpPatch("Cancel/{id:int:min(1)}")]
+    public async Task<ActionResult<ClientOrderDto>> CancelClientOrder([FromRoute] int id)
+    {
+        var result = await _clientOrderService.CancelOrderAsync(id);
+        return result != null ? Ok(result.ToDto()) : NotFound();
     }
 
     // api/ClientOrder/OrderAnalysis

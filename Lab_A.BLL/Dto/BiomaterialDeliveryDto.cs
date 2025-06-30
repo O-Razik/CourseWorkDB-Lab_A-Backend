@@ -16,5 +16,5 @@ public class BiomaterialDeliveryDto
 
     public BiomaterialCollectionDto BiomaterialCollection { get; set; } = null!;
     
-    public StatusDto Status { get; set; } = null!;
+    public StatusDto? Status { get; set; } = null!;
 }

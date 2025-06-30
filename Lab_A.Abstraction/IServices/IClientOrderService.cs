@@ -19,6 +19,8 @@ public interface IClientOrderService
         int pageSize = 10);
 
     Task<IClientOrder?> UpdateAsync(IClientOrder entity);
+    
+    Task<IClientOrder?> CancelOrderAsync(int clientOrderId);
     Task<bool> DeleteAsync(int id);
     Task<IEnumerable<IClientOrder>> ReadAllByClientIdAsync(int clientId);
 }

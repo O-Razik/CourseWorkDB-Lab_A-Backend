@@ -97,6 +97,11 @@ public class InventoryOrderService : IInventoryOrderService
     {
         return await _repository.UpdateAsync(entity);
     }
+    
+public async Task<IInventoryOrder?> CancelOrderAsync(int id)
+    {
+        return await _repository.CancelOrderAsync(id);
+    }
 
     public async Task<bool> DeleteAsync(int id)
     {
