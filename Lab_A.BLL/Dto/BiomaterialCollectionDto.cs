@@ -20,5 +20,5 @@ public class BiomaterialCollectionDto
     
     public BiomaterialDto Biomaterial { get; set; }
 
-    public InventoryInLaboratoryDto InventoryInLaboratory { get; set; }
+    public InventoryInLaboratoryDto? InventoryInLaboratory { get; set; }
 }

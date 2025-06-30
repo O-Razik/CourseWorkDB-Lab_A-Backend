@@ -17,5 +17,8 @@ public interface IInventoryOrderService
         int pageNumber = 1,
         int pageSize = 10);
     Task<IInventoryOrder?> UpdateAsync(IInventoryOrder entity);
+    
+    Task<IInventoryOrder?> CancelOrderAsync(int id);
+    
     Task<bool> DeleteAsync(int id);
 }

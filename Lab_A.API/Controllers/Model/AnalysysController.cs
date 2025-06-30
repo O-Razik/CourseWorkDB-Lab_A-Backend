@@ -1,6 +1,7 @@
 ﻿using Lab_A.Abstraction.IServices;
 using Lab_A.BLL.Dto;
 using Lab_A.BLL.DtoMappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lab_A.API.Controllers.Model
@@ -33,7 +34,7 @@ namespace Lab_A.API.Controllers.Model
             var result = await _analysisService.ReadAsync(id);
             return result == null ? NotFound() : Ok(result.ToDto());
         }
-
+        
         [HttpPost]
         public async Task<ActionResult<AnalysisDto>> CreateAnalysis([FromBody] AnalysisDto analysisDto)
         {

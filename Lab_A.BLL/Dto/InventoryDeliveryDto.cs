@@ -18,9 +18,9 @@ public class InventoryDeliveryDto
 
     public DateTime? ExpirationDate { get; set; }
     
-    public virtual InventoryInLaboratoryDto InventoryInLaboratory { get; set; } = null!;
+    public virtual InventoryInLaboratoryDto? InventoryInLaboratory { get; set; } = null!;
 
     public virtual InventoryInOrderDto InventoryInOrder { get; set; } = null!;
     
-    public virtual StatusDto Status { get; set; } = null!;
+    public virtual StatusDto? Status { get; set; } = null!;
 }

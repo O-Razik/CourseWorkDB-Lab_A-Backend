@@ -19,39 +19,28 @@ public class BiomaterialDeliveryRepository : IBiomaterialDeliveryRepository
     {
         var biomaterialDelivery = (BiomaterialDelivery)entity;
 
+        // Ensure the ID is zero before any assignments
+        biomaterialDelivery.BiomaterialDeliveryId = 0;
         biomaterialDelivery.CreateDatetime = DateTime.Now;
         biomaterialDelivery.UpdateDatetime = null;
 
-        // Set the BiomaterialCollectionId if BiomaterialCollection is not null
         if (biomaterialDelivery.BiomaterialCollection != null)
         {
             biomaterialDelivery.BiomaterialCollectionId = biomaterialDelivery.BiomaterialCollection.BiomaterialCollectionId;
         }
-        // Set the BiomaterialCollection to null if BiomaterialCollectionId is not set
         biomaterialDelivery.BiomaterialCollection = null;
 
-        // Set the AnalysisCenterId if AnalysisCenter is not null
         if (biomaterialDelivery.AnalysisCenter != null)
         {
             biomaterialDelivery.AnalysisCenterId = biomaterialDelivery.AnalysisCenter.AnalysisCenterId;
         }
-        // Set the AnalysisCenter to null if AnalysisCenterId is not set
         biomaterialDelivery.AnalysisCenter = null;
 
-        // Set the StatusId if Status is not null
         if (biomaterialDelivery.Status != null)
         {
             biomaterialDelivery.StatusId = biomaterialDelivery.Status.StatusId;
         }
-
-        // Set the Status to null if StatusId is not set
         biomaterialDelivery.Status = null;
-
-        // Set the BiomaterialDeliveryId to 0 if it is not set
-        if (biomaterialDelivery.BiomaterialDeliveryId != 0)
-        {
-            biomaterialDelivery.BiomaterialDeliveryId = 0;
-        }
 
         await _aContext.BiomaterialDeliveries.AddAsync(biomaterialDelivery);
         await _aContext.SaveChangesAsync();

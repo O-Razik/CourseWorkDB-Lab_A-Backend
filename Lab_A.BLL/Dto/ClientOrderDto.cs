@@ -24,5 +24,5 @@ public class ClientOrderDto
 
     public ICollection<BiomaterialCollectionDto>? BiomaterialCollections { get; set; }
 
-    public StatusDto Status { get; set; } = null!;
+    public StatusDto? Status { get; set; } = null!;
 }

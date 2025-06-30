@@ -18,4 +18,6 @@ public interface IInventoryDeliveryService
         );
     Task<IInventoryDelivery?> UpdateAsync(IInventoryDelivery entity);
     Task<bool> DeleteAsync(int id);
+    
+    Task<IInventoryDelivery?> UpdateStatusAsync(int deliveryId, int status);
 }

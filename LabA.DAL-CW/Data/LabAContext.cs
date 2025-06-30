@@ -158,6 +158,9 @@ public partial class LabAContext : DbContext
             entity.HasOne(d => d.Status).WithMany(p => p.BiomaterialDeliveries)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_status_bd_id");
+
+
+            entity.ToTable(tb => tb.HasTrigger("trg_BiomaterialDelivery_SetOrderInProgress"));
         });
 
         modelBuilder.Entity<City>(entity =>
@@ -190,6 +193,8 @@ public partial class LabAContext : DbContext
             entity.HasOne(d => d.Status).WithMany(p => p.ClientOrders)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_status_id");
+            
+            entity.ToTable(tb => tb.HasTrigger("trg_ClientOrder_CancelOrderCleanup"));
         });
 
         modelBuilder.Entity<Day>(entity =>
@@ -233,6 +238,12 @@ public partial class LabAContext : DbContext
             entity.HasOne(d => d.Status).WithMany(p => p.InventoryDeliveries)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("fk_status_id_id");
+            
+            entity.ToTable(tb => tb.HasTrigger("trg_InventoryDelivery_SetOrderInProgress"));
+            
+            entity.ToTable(tb => tb.HasTrigger("trg_InventoryDelivery_CompleteOrder"));
+            
+            entity.ToTable(tb => tb.HasTrigger("trg_InventoryDelivery_StatusChange"));
         });
 
         modelBuilder.Entity<InventoryInLaboratory>(entity =>

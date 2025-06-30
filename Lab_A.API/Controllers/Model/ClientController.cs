@@ -1,6 +1,7 @@
 ﻿using Lab_A.Abstraction.IServices;
 using Lab_A.BLL.Dto;
 using Lab_A.BLL.DtoMappers;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Lab_A.API.Controllers.Model;

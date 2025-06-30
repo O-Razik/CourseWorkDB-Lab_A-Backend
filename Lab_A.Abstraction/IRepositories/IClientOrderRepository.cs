@@ -6,4 +6,6 @@ public interface IClientOrderRepository : ICrud<IClientOrder>
 {
     Task<IQueryable<IClientOrder>> QueryAsync();
     Task<IEnumerable<IClientOrder>> ReadAllByClientIdAsync(int clientId);
+    
+    Task<IClientOrder?> CancelOrderAsync(int clientOrderId);
 }

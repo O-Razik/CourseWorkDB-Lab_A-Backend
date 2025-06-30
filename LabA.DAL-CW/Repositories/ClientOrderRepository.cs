@@ -169,6 +169,22 @@ public class ClientOrderRepository : IClientOrderRepository
         await _aContext.SaveChangesAsync();
         return (await this.ReadAsync(clientOrder.ClientOrderId))!;
     }
+    
+    public async Task<IClientOrder?> CancelOrderAsync(int id)
+    {
+        var entity = await _aContext.ClientOrders
+            .Where(cl => cl.ClientOrderId == id)
+            .FirstOrDefaultAsync();
+        if (entity == null) return null;
+
+        // Set the status to "Cancelled" (assuming 3 is the ID for "Cancelled")
+        entity.StatusId = 4; // Adjust this ID based on your actual status IDs
+        entity.UpdateDatetime = DateTime.Now;
+
+        _aContext.Entry(entity).State = EntityState.Modified;
+        await _aContext.SaveChangesAsync();
+        return (await this.ReadAsync(entity.ClientOrderId))!;
+    }
 
     public async Task<bool> DeleteAsync(int id)
     {

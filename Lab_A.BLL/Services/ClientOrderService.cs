@@ -118,6 +118,11 @@ public class ClientOrderService : IClientOrderService
     {
         return await _repository.UpdateAsync(entity);
     }
+    
+    public async Task<IClientOrder?> CancelOrderAsync(int clientOrderId)
+    {
+        return await _repository.CancelOrderAsync(clientOrderId);
+    }
 
     public async Task<bool> DeleteAsync(int id)
     {

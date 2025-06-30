@@ -136,6 +136,58 @@ public class InventoryOrderRepository : IInventoryOrderRepository
         await _aContext.SaveChangesAsync();
         return (await this.ReadAsync(inventoryOrder.InventoryOrderId))!;
     }
+    
+    public async Task<IInventoryOrder?> CancelOrderAsync(int id)
+    {
+        var entity = await _aContext.InventoryOrders
+            .Where(io => io.InventoryOrderId == id)
+            .FirstOrDefaultAsync();
+        if (entity == null) return null;
+
+        // Set the Status to "Cancelled"
+        entity.StatusId = _aContext.Statuses.FirstOrDefault(s => s.StatusName == "Cancelled")?.StatusId ?? 4;
+        entity.UpdateDatetime = DateTime.Now;
+
+        _aContext.Entry(entity).State = EntityState.Modified;
+        await _aContext.SaveChangesAsync();
+        return (await this.ReadAsync(entity.InventoryOrderId))!;
+    }
+
+    public async Task<IInventoryOrder?> UpdateStatusAsync(int id)
+    {
+        var entity = await this.ReadAsync(id);
+        if (entity == null) return null;
+
+        // Check if all InventoryInOrder items are fully delivered
+        var allCompleted = entity.InventoryInOrders.All(iio =>
+        {
+            var completedQty = iio.InventoryDeliveries
+                .Where(d => d.Status is { StatusId: 3 })
+                .Sum(d => d.Quantity ?? 0);
+
+            return (iio.Quantity ?? 0) == completedQty;
+        });
+
+        var newStatusId = 1; // Новий
+
+        if (allCompleted)
+        {
+            newStatusId = 3; // Завершений
+        }
+        else if (entity.InventoryInOrders.Any(iio => iio.InventoryDeliveries != null && iio.InventoryDeliveries.Any()))
+        {
+            newStatusId = 2; // В процесі
+        }
+
+        var dbEntity = await _aContext.InventoryOrders.FirstOrDefaultAsync(io => io.InventoryOrderId == id);
+        if (dbEntity == null || dbEntity.StatusId == newStatusId) return await this.ReadAsync(id);
+        dbEntity.StatusId = newStatusId;
+        dbEntity.UpdateDatetime = DateTime.Now;
+        _aContext.Entry(dbEntity).State = EntityState.Modified;
+        await _aContext.SaveChangesAsync();
+
+        return await this.ReadAsync(id);
+    }
 
     public async Task<bool> DeleteAsync(int id)
     {
