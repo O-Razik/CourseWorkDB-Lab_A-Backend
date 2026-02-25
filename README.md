@@ -1,7 +1,5 @@
 # CourseWorkDB-Lab_A-Backend
 
----
-
 ## 🇬🇧 English
 
 ### Purpose
